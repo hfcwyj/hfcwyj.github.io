@@ -1,4 +1,6 @@
 ## Welcome to GitHub Pages
+## Welcome my blogs
+## i'll probably update a blog, maybe
 
 You can use the [editor on GitHub](https://github.com/hfcwyj/hfcwyj.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
 
