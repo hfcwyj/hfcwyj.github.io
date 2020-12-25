@@ -1,41 +1,44 @@
-## Welcome to GitHub Pages
 ## Welcome my blogs
 ## i'll probably update a blog, maybe
 
-You can use the [editor on GitHub](https://github.com/hfcwyj/hfcwyj.github.io/edit/master/index.md) to maintain and preview the content for your website in Markdown files.
+###### http.
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
-
-### Markdown
-
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
-
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```java
+protected void configure(HttpSecurity http) throws Exception {
+	http.authorizeRequests()//认证配置
+		.anyRequest()//任何请求
+		.authenticated()//都需要身份认证
+		.and()
+		.antMatchers("/login/**","/logout")//配置请求路径
+		.permitAll()//指定URL不需保护
+        .antMatchers("/find").hasAuthority("admins")//需要用户带有admins权限
+        .hasAnyAuthority("role")//需要主体带有role权限
+        .hasRole("admin")//需要用户具有admin角色
+        .and()
+		.fromLogin()//表单登录
+		.loginPage("/login")//配置哪个url为登录页面
+		.loginProcessingUrl("/login")//设置哪个是登录的url
+        .successForwardUrl("/success")//登陆成功后跳转url
+        .failureForwardUrl("/fail")//登陆失败之后跳转url
+        .usernameParameter("username")//获取登陆用户名
+        .passwordParameter("password")//获取登陆密码
+        .and()
+        .logout()//退出
+        .logoutUrl("/login")//配置哪个url为退出页面
+        .logoutSuccessUrl("/index")//退出成功后跳转页面
+        .logoutSuccessHandler(...)//退出成功后操作
+        .and()
+        .exceptionHandling()//权限校验
+        .accessDeniedPage("/unauth");//权限校验异常跳转url
+        .accessDeniedHandler(...)//权限校验失败后操作
+        .and()
+        .remeberMe()//记住我
+        .tokenValiditySeconds(10)//时间
+        .tokenRepository(tokenPepository)
+        .userDetailsService();
+        .csrf().disable()//关闭csrf
+}
 ```
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
 
-### Jekyll Themes
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/hfcwyj/hfcwyj.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
-
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
-
-### 一个懒人的博客 懒得去写
